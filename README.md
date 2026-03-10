@@ -1,5 +1,9 @@
 # 🌿 Ecomart — API REST con Spring AI + OpenAI
 
+[![Alura Latam](https://img.shields.io/badge/Alura%20Latam-Formación%20ONE-0070f3?style=for-the-badge)](https://www.aluracursos.com/) [![Oracle Next Education](https://img.shields.io/badge/Oracle%20Next%20Education-ONE%20G9-f80000?style=for-the-badge&logo=oracle&logoColor=white)](https://www.oracle.com/mx/education/oracle-next-education/) ![Proyecto educativo](https://img.shields.io/badge/Proyecto-educativo-blue?style=for-the-badge)
+
+![Java 17](https://img.shields.io/badge/Java-17-007396?style=for-the-badge&logo=java&logoColor=white) ![Spring Boot 3.3.x](https://img.shields.io/badge/Spring%20Boot-3.3.x-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white) ![Spring AI + OpenAI](https://img.shields.io/badge/Spring%20AI-OpenAI-6DB33F?style=for-the-badge)
+
 > API REST desarrollada en **Java 17 + Spring Boot 3** que integra **Spring AI** y **OpenAI** (GPT-4o-mini y DALL-E 3) para categorizar productos, generar descripciones, resumir fichas e ilustrar artículos de un catálogo de ecommerce ecológico.
 >
 > Desarrollada como challenge del programa **Oracle Next Education (ONE) G9** · Alura Latam.
@@ -21,7 +25,7 @@
 ## 📡 Endpoints
 
 | Método | URL | Descripción |
-|--------|-----|-------------|
+| ------ | --- | ----------- |
 | `POST` | `/api/v1/categorizar` | Categoriza un producto ecológico con GPT |
 | `POST` | `/api/v1/generar-producto` | Genera una descripción de ficha de producto |
 | `POST` | `/api/v1/resumir` | Resume el producto en máx. 50 palabras |
@@ -97,7 +101,7 @@ Content-Type: application/json
 ## 🛠️ Tecnologías utilizadas
 
 | Tecnología | Versión | Uso |
-|---|---|---|
+| ---------- | ------- | --- |
 | **Java** | 17 | Lenguaje principal |
 | **Spring Boot** | 3.3.x | Framework base |
 | **Spring Web** | — | Capa REST |
@@ -119,14 +123,14 @@ Content-Type: application/json
 
 ### Pasos
 
-**1. Clonar el repositorio**
+#### 1. Clonar el repositorio
 
 ```bash
 git clone https://github.com/alemakey/ecomart-spring-ai.git
 cd ecomart-spring-ai
 ```
 
-**2. Configurar la variable de entorno con tu API Key**
+#### 2. Configurar la variable de entorno con tu API Key
 
 En Windows (PowerShell):
 
@@ -142,7 +146,7 @@ export SPRING_AI_OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
 
 > ⚠️ **Nunca subas tu API key al repositorio.** El `.gitignore` ya excluye archivos `.env` y `application-secrets.properties`.
 
-**3. Ejecutar la aplicación**
+#### 3. Ejecutar la aplicación
 
 En Windows:
 
@@ -162,7 +166,7 @@ La API estará disponible en: `http://localhost:8080`
 
 ## 📁 Estructura del proyecto
 
-```
+```text
 src/
 └── main/
     ├── java/com/aluracursos/ecomart/

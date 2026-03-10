@@ -1,152 +1,40 @@
-# Ecomart — API REST con Spring AI + OpenAI
+# 🌿 Ecomart — API REST con Spring AI + OpenAI
 
-![Java](https://img.shields.io/badge/Java-17-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.x-brightgreen) ![Spring AI](https://img.shields.io/badge/Spring%20AI-1.0.0--M2-orange) ![Maven](https://img.shields.io/badge/build-Maven-red)
-
-## Descripción general
-
-**Ecomart** es una API REST desarrollada como proyecto del curso **"Spring AI: Integra una aplicación con OpenAI"** de [Alura Latam / ONE](https://www.alura.com.br/one). El proyecto demuestra la integración de **Java 17 + Spring Boot 3** con los modelos de lenguaje e imagen de OpenAI a través de **Spring AI**.
-
-La API permite a una tienda ecológica:
-
-- **Categorizar** productos automáticamente con GPT-4o-mini.
-- **Generar descripciones** de venta atractivas en lenguaje natural.
-- **Crear imágenes** de producto con DALL-E 3.
-- **Resumir** productos en 50 palabras con tono orientado a conversión.
-
-Todas las operaciones incluyen **conteo de tokens de entrada** mediante JTokkit, lo que permite monitorear los costos de uso de la API de OpenAI desde el primer día.
+> API REST desarrollada en **Java 17 + Spring Boot 3** que integra **Spring AI** y **OpenAI** (GPT-4o-mini y DALL-E 3) para categorizar productos, generar descripciones, resumir fichas e ilustrar artículos de un catálogo de ecommerce ecológico.
+>
+> Desarrollada como challenge del programa **Oracle Next Education (ONE) G9** · Alura Latam.
 
 ---
 
-## Tecnologías utilizadas
+## 🗂️ Funcionalidades
 
-| Tecnología | Versión | Uso |
-|---|---|---|
-| Java | 17 | Lenguaje principal |
-| Spring Boot | 3.3.x | Framework base |
-| Spring Web | — | Capa REST |
-| Spring Boot Actuator | — | Monitoreo y health-check |
-| Spring AI (OpenAI) | 1.0.0-M2 | Integración con GPT y DALL-E |
-| JTokkit | 1.1.0 | Conteo de tokens |
-| Lombok | — | Reducción de boilerplate |
-| Maven | — | Gestión de dependencias y build |
+- 🏷️ **Categorización automática** de productos con GPT-4o-mini
+- 📝 **Generación de descripciones** de ficha de producto (máx. 120 palabras)
+- ✍️ **Resúmenes cortos** orientados a ventas (máx. 50 palabras)
+- 🖼️ **Generación de imágenes** de producto con DALL-E 3
+- 🔢 **Conteo de tokens de entrada** por solicitud para control de costos (JTokkit)
+- ✅ **Validación de entrada** con Jakarta Validation (`@Valid` + `@NotBlank`)
+- 🛡️ **Manejo centralizado de errores** con `@ControllerAdvice`
 
 ---
 
-## Funcionalidades principales
+## 📡 Endpoints
 
-- ✅ Categorización de productos con GPT-4o-mini
-- ✅ Generación de descripciones de producto en español
-- ✅ Resúmenes cortos (máx. 50 palabras) orientados a ventas
-- ✅ Generación de imágenes con DALL-E 3
-- ✅ Conteo de tokens de entrada por solicitud (control de costos)
-- ✅ Validación de entrada con Jakarta Validation
-- ✅ Manejo centralizado de errores con `@ControllerAdvice`
+| Método | URL | Descripción |
+|--------|-----|-------------|
+| `POST` | `/api/v1/categorizar` | Categoriza un producto ecológico con GPT |
+| `POST` | `/api/v1/generar-producto` | Genera una descripción de ficha de producto |
+| `POST` | `/api/v1/resumir` | Resume el producto en máx. 50 palabras |
+| `POST` | `/api/v1/imagen` | Genera una imagen del producto con DALL-E 3 |
 
----
+### Ejemplo — Categorizar producto
 
-## Endpoints disponibles
+```http
+POST /api/v1/categorizar
+Content-Type: application/json
 
-| Método | URL | Descripción | Body (ejemplo) |
-|---|---|---|---|
-| `POST` | `/api/v1/categorizar` | Categoriza un producto ecológico con GPT | `{"nombre": "Jabón de avena orgánico"}` |
-| `POST` | `/api/v1/generar-producto` | Genera una descripción de ficha de producto | `{"nombre": "Cepillo de dientes de bambú"}` |
-| `POST` | `/api/v1/resumir` | Resume un producto en máx. 50 palabras | `{"nombre": "Botella de acero inoxidable"}` |
-| `POST` | `/api/v1/imagen` | Genera una imagen del producto con DALL-E 3 | `{"prompt": "Imagen de bolsa de tela reutilizable ecológica"}` |
-
----
-
-## Estructura del proyecto
-
+{ "nombre": "Jabón de avena orgánico sin parabenos" }
 ```
-ecomart/
-├── src/
-│   ├── main/
-│   │   ├── java/com/aluracursos/ecomart/
-│   │   │   ├── EcomartApplication.java
-│   │   │   ├── Controller/
-│   │   │   │   ├── CategorizadorDeProductosController.java
-│   │   │   │   ├── GeneradorDeProductosController.java
-│   │   │   │   ├── ResumenProductosController.java
-│   │   │   │   └── GeneradorDeImagenesController.java
-│   │   │   ├── dto/
-│   │   │   │   ├── ProductoNombreRequest.java
-│   │   │   │   ├── CategoriaResponse.java
-│   │   │   │   ├── ProductoDescripcionResponse.java
-│   │   │   │   ├── ProductoResumenResponse.java
-│   │   │   │   ├── ImagenRequest.java
-│   │   │   │   └── ImagenResponse.java
-│   │   │   └── exception/
-│   │   │       └── GlobalExceptionHandler.java
-│   │   └── resources/
-│   │       └── application.properties
-│   └── test/
-└── pom.xml
-```
-
----
-
-## Cómo ejecutar el proyecto
-
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/alemakey/ecomart-spring-ai.git
-cd ecomart-spring-ai
-```
-
-### 2. Configurar la API Key de OpenAI
-
-Crea una variable de entorno con tu clave de OpenAI:
-
-**PowerShell (Windows):**
-
-```powershell
-$env:SPRING_AI_OPENAI_API_KEY = "sk-xxxxxxxxxxxxxxxxxxxxxxxx"
-```
-
-**Bash (Linux / macOS):**
-
-```bash
-export SPRING_AI_OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxx
-```
-
-### 3. Ejecutar la aplicación
-
-```bash
-./mvnw spring-boot:run
-```
-
-O con Maven instalado globalmente:
-
-```bash
-mvn spring-boot:run
-```
-
-La API estará disponible en: **`http://localhost:8080`**
-
----
-
-## Variables de entorno necesarias
-
-| Variable | Descripción | Requerida |
-|---|---|---|
-| `SPRING_AI_OPENAI_API_KEY` | Clave de acceso a la API de OpenAI | ✅ Sí |
-
-> ⚠️ **Nunca subas tu API key al repositorio.** El proyecto ya incluye `.gitignore` que excluye archivos `.env`.
-
----
-
-## Ejemplos de requests
-
-### POST `/api/v1/categorizar`
-
-```json
-{
-  "nombre": "Jabón de avena orgánico sin parabenos"
-}
-```
-
-**Respuesta:**
 
 ```json
 {
@@ -156,17 +44,14 @@ La API estará disponible en: **`http://localhost:8080`**
 }
 ```
 
----
+### Ejemplo — Generar descripción
 
-### POST `/api/v1/generar-producto`
+```http
+POST /api/v1/generar-producto
+Content-Type: application/json
 
-```json
-{
-  "nombre": "Cepillo de dientes de bambú"
-}
+{ "nombre": "Cepillo de dientes de bambú" }
 ```
-
-**Respuesta:**
 
 ```json
 {
@@ -175,17 +60,14 @@ La API estará disponible en: **`http://localhost:8080`**
 }
 ```
 
----
+### Ejemplo — Resumir producto
 
-### POST `/api/v1/resumir`
+```http
+POST /api/v1/resumir
+Content-Type: application/json
 
-```json
-{
-  "nombre": "Botella de acero inoxidable reutilizable 750ml"
-}
+{ "nombre": "Botella de acero inoxidable reutilizable 750ml" }
 ```
-
-**Respuesta:**
 
 ```json
 {
@@ -195,17 +77,14 @@ La API estará disponible en: **`http://localhost:8080`**
 }
 ```
 
----
+### Ejemplo — Generar imagen
 
-### POST `/api/v1/imagen`
+```http
+POST /api/v1/imagen
+Content-Type: application/json
 
-```json
-{
-  "prompt": "Imagen profesional de una bolsa de tela ecológica de algodón orgánico"
-}
+{ "prompt": "Bolsa de tela ecológica de algodón orgánico, fondo blanco, estilo profesional" }
 ```
-
-**Respuesta:**
 
 ```json
 {
@@ -215,20 +94,100 @@ La API estará disponible en: **`http://localhost:8080`**
 
 ---
 
-## Próximas mejoras
+## 🛠️ Tecnologías utilizadas
 
-- [ ] Agregar caché de respuestas para reducir costos de API
-- [ ] Implementar rate limiting por IP
-- [ ] Exponer métricas de tokens con Spring Boot Actuator
-- [ ] Añadir soporte para embeddings y búsqueda semántica
-- [ ] Dockerizar la aplicación
+| Tecnología | Versión | Uso |
+|---|---|---|
+| **Java** | 17 | Lenguaje principal |
+| **Spring Boot** | 3.3.x | Framework base |
+| **Spring Web** | — | Capa REST |
+| **Spring Boot Actuator** | — | Monitoreo y health-check |
+| **Spring AI (OpenAI)** | 1.0.0-M2 | Integración con GPT y DALL-E |
+| **JTokkit** | 1.1.0 | Conteo de tokens |
+| **Lombok** | — | Reducción de boilerplate |
+| **Maven Wrapper** | — | No requiere Maven instalado |
 
 ---
 
-## Créditos
+## 🚀 Cómo ejecutar el proyecto localmente
 
-Este proyecto fue desarrollado como parte del curso **"Spring AI: Integra una aplicación con OpenAI"** de **[Alura Latam](https://www.alura.com.br/one)** / **Oracle Next Education (ONE)**.
+### Requisitos previos
 
-- 📚 Plataforma: [alura.com.br](https://www.alura.com.br)
-- 🤖 Modelos utilizados: GPT-4o-mini, DALL-E 3
-- ☕ Tecnologías: Java 17, Spring Boot 3, Spring AI
+- **JDK 17 o superior** instalado ([descargar aquí](https://www.oracle.com/java/technologies/downloads/))
+- **Git** instalado
+- **Clave de API de OpenAI** ([obtener aquí](https://platform.openai.com/api-keys))
+
+### Pasos
+
+**1. Clonar el repositorio**
+
+```bash
+git clone https://github.com/alemakey/ecomart-spring-ai.git
+cd ecomart-spring-ai
+```
+
+**2. Configurar la variable de entorno con tu API Key**
+
+En Windows (PowerShell):
+
+```powershell
+$env:SPRING_AI_OPENAI_API_KEY = "sk-xxxxxxxxxxxxxxxxxxxx"
+```
+
+En macOS / Linux:
+
+```bash
+export SPRING_AI_OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxx
+```
+
+> ⚠️ **Nunca subas tu API key al repositorio.** El `.gitignore` ya excluye archivos `.env` y `application-secrets.properties`.
+
+**3. Ejecutar la aplicación**
+
+En Windows:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+En macOS / Linux:
+
+```bash
+./mvnw spring-boot:run
+```
+
+La API estará disponible en: `http://localhost:8080`
+
+---
+
+## 📁 Estructura del proyecto
+
+```
+src/
+└── main/
+    ├── java/com/aluracursos/ecomart/
+    │   ├── EcomartApplication.java
+    │   ├── Controller/
+    │   │   ├── CategorizadorDeProductosController.java   # POST /api/v1/categorizar
+    │   │   ├── GeneradorDeProductosController.java       # POST /api/v1/generar-producto
+    │   │   ├── ResumenProductosController.java           # POST /api/v1/resumir
+    │   │   └── GeneradorDeImagenesController.java        # POST /api/v1/imagen
+    │   ├── dto/
+    │   │   ├── ProductoNombreRequest.java                # Request compartido
+    │   │   ├── CategoriaResponse.java
+    │   │   ├── ProductoDescripcionResponse.java
+    │   │   ├── ProductoResumenResponse.java
+    │   │   ├── ImagenRequest.java
+    │   │   └── ImagenResponse.java
+    │   └── exception/
+    │       └── GlobalExceptionHandler.java               # Manejo global de errores
+    └── resources/
+        └── application.properties
+```
+
+---
+
+## ✒️ Autor
+
+Desarrollado con ❤️ por **Victor Martinez Reyna**
+📌 Programa **Oracle Next Education (ONE) G9** · Alura Latam

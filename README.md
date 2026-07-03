@@ -1,5 +1,6 @@
 # 🌿 Ecomart — API REST con Spring AI + OpenAI
 
+[![Java CI with Maven](https://github.com/alemakey/ecomart-spring-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/alemakey/ecomart-spring-ai/actions/workflows/ci.yml)
 [![Alura Latam](https://img.shields.io/badge/Alura%20Latam-Formación%20ONE-0070f3?style=for-the-badge)](https://www.aluracursos.com/) [![Oracle Next Education](https://img.shields.io/badge/Oracle%20Next%20Education-ONE%20G9-f80000?style=for-the-badge&logo=oracle&logoColor=white)](https://www.oracle.com/mx/education/oracle-next-education/) ![Proyecto educativo](https://img.shields.io/badge/Proyecto-educativo-blue?style=for-the-badge)
 
 ![Java 17](https://img.shields.io/badge/Java-17-007396?style=for-the-badge&logo=java&logoColor=white) ![Spring Boot 3.3.x](https://img.shields.io/badge/Spring%20Boot-3.3.x-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white) ![Spring AI + OpenAI](https://img.shields.io/badge/Spring%20AI-OpenAI-6DB33F?style=for-the-badge)
@@ -7,6 +8,12 @@
 > API REST desarrollada en **Java 17 + Spring Boot 3** que integra **Spring AI** y **OpenAI** (GPT-4o-mini y DALL-E 3) para categorizar productos, generar descripciones, resumir fichas e ilustrar artículos de un catálogo de ecommerce ecológico.
 >
 > Desarrollada como challenge del programa **Oracle Next Education (ONE) G9** · Alura Latam.
+
+---
+
+## 💼 Contexto de negocio
+
+En un entorno de e-commerce real, catalogar y describir productos manualmente resulta lento y propenso a inconsistencias. Esta API soluciona este cuello de botella automatizando la categorización, la redacción de fichas atractivas y la generación de imágenes. Al eliminar estos pasos manuales repetitivos, el proyecto reduce significativamente el tiempo y esfuerzo requeridos para dar de alta nuevos productos en el catálogo.
 
 ---
 

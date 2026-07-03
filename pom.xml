@@ -110,6 +110,24 @@
                     </excludes>
                 </configuration>
             </plugin>
+
+            <!--
+                maven-surefire-plugin: configuración necesaria para JDK 25.
+                - net.bytebuddy.experimental=true  → ByteBuddy (usado por Mockito) no soporta
+                  oficialmente Java 25 aún; este flag habilita el modo experimental.
+                - spring.ai.openai.api-key          → valor ficticio para que Spring AI
+                  no falle al arrancar el contexto de @SpringBootTest sin API key real.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Dnet.bytebuddy.experimental=true</argLine>
+                    <systemPropertyVariables>
+                        <spring.ai.openai.api-key>test-key-no-real</spring.ai.openai.api-key>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
